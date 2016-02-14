@@ -1,5 +1,3 @@
 require 'formulita_backend/version'
-
-module FormulitaBackend
-  # Your code goes here...
-end
+require 'formulita_backend/driver'
+require 'formulita_backend/team'
