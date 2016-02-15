@@ -24,6 +24,17 @@ module FormulitaBackend
         end
       end
 
+      def teams(year)
+        response = get(teams_path(year))
+        parsed_response = parse(response)
+        team_standings(parsed_response).map do |team_info|
+          name = team_info['Constructor']['name']
+          nationality = team_info['Constructor']['nationality']
+          points = team_info['points'].to_i
+          Team.new(name, nationality, points)
+        end
+      end
+
       private
 
       def get(path)
@@ -41,6 +52,15 @@ module FormulitaBackend
       def driver_standings(drivers_parsed_resp)
         drivers_parsed_resp['MRData']['StandingsTable']['StandingsLists']
             .first['DriverStandings']
+      end
+
+      def teams_path(year)
+        "#{BASE_PATH}#{year}/constructorstandings.json".freeze
+      end
+
+      def team_standings(teams_parsed_resp)
+        teams_parsed_resp['MRData']['StandingsTable']['StandingsLists']
+            .first['ConstructorStandings']
       end
 
     end
