@@ -15,12 +15,12 @@ module FormulitaBackend
       "#{first_name[0]}.#{last_name}"
     end
 
-    def to_json
-      { first_name: @first_name,
-        last_name: @last_name,
-        nationality: @nationality,
-        team: @team,
-        points: @points }.to_json
+    def to_h
+      { first_name: first_name,
+        last_name: last_name,
+        nationality: nationality,
+        team: team,
+        points: points }
     end
 
   end

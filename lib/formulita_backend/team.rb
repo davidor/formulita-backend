@@ -9,10 +9,10 @@ module FormulitaBackend
       @points = points
     end
 
-    def to_json
-      { name: @name,
-        nationality: @nationality,
-        points: @points }.to_json
+    def to_h
+      { name: name,
+        nationality: nationality,
+        points: points }
     end
 
   end
