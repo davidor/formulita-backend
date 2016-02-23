@@ -1,4 +1,5 @@
 require 'formulita_backend/version'
+require 'formulita_backend/championship'
 require 'formulita_backend/qualifying_result'
 require 'formulita_backend/race'
 require 'formulita_backend/race_result'
