@@ -12,6 +12,11 @@ module FormulitaBackend
       @end_date = end_date
     end
 
+    def start_date
+      days_before = country == 'Monaco' ? 3 : 2
+      (DateTime.parse(end_date) - days_before).strftime('%Y-%m-%d')
+    end
+
     def to_h
       { year: year,
         round: round,
