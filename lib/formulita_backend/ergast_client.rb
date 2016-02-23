@@ -104,8 +104,8 @@ module FormulitaBackend
           position = position_info['position'].to_i
           driver_code = position_info['Driver']['code']
           q1 = position_info['Q1']
-          q2 = position_info['Q2']
-          q3 = position_info['Q3']
+          q2 = position_info['Q2'] || ''
+          q3 = position_info['Q3'] || ''
           QualifyingResult.new(position, driver_code, q1, q2, q3)
         end
       end
