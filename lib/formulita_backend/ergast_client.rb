@@ -120,16 +120,16 @@ module FormulitaBackend
           position = position_info['position'].to_i
           driver_code = position_info['Driver']['code']
           laps = position_info['laps'].to_i
-          status = position_info['status']
 
-          # There is one race that does not have Time data. 14th of 2015.
-          # That is why I cannot check position_info['Time']['time'] even
-          # when status = finished.
-          time = (position_info['Time'] ? position_info['Time']['time'] : nil)
+          time = if position_info['Time']
+                   position_info['Time']['time']
+                 else
+                   position_info['status']
+                 end
 
           grid = position_info['grid'].to_i
           race_points = position_info['points'].to_i
-          RaceResult.new(position, driver_code, laps, time, status, grid, race_points)
+          RaceResult.new(position, driver_code, laps, time, grid, race_points)
         end
       end
 

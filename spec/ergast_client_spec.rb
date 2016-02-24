@@ -37,9 +37,9 @@ module FormulitaBackend
 
     let(:race_results) do
       { hamilton_australia:
-            RaceResult.new(1, 'HAM', 58, '1:31:54.067', 'Finished', 1, 25),
+            RaceResult.new(1, 'HAM', 58, '1:31:54.067', 1, 25),
         rosberg_australia:
-            RaceResult.new(2, 'ROS', 58, '+1.360', 'Finished', 2, 18) }
+            RaceResult.new(2, 'ROS', 58, '+1.360', 2, 18) }
     end
 
     describe '.races' do
