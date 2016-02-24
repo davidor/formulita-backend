@@ -1,12 +1,7 @@
 require 'json'
 
 require 'formulita_backend/version'
-require 'formulita_backend/championship'
-require 'formulita_backend/qualifying_result'
-require 'formulita_backend/race'
-require 'formulita_backend/race_result'
-require 'formulita_backend/driver'
-require 'formulita_backend/team'
+require 'formulita_backend/models'
 require 'formulita_backend/ergast_client'
 require 'formulita_backend/updater'
 require 'formulita_backend/formatter'
