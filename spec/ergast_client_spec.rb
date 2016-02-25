@@ -19,8 +19,8 @@ module FormulitaBackend
     end
 
     let(:drivers) do
-      { hamilton: Driver.new('Lewis', 'Hamilton', 'British', 'Mercedes', 381),
-        rosberg: Driver.new('Nico', 'Rosberg', 'German', 'Mercedes', 322) }
+      { hamilton: Driver.new('HAM', 'British', 'Mercedes', 381),
+        rosberg: Driver.new('ROS', 'German', 'Mercedes', 322) }
     end
 
     let(:teams) do

@@ -37,7 +37,7 @@ module FormulitaBackend
             country: formatted_country(race.country),
             startDate: formatted_time(DateTime.parse(race.start_date)),
             endDate: formatted_time(DateTime.parse(race.end_date)),
-            winner: driver(drivers, race_results[index].first.driver_code).formatted_name,
+            winner: driver_name(race_results[index].first.driver_code),
             qualyResults: formatted_qualy_results(qualy_results[index], drivers),
             raceResults: formatted_race_results(race_results[index], drivers) }
         end
@@ -46,7 +46,7 @@ module FormulitaBackend
       def formatted_qualy_results(qualy_results, drivers)
         qualy_results.map do |result|
           { position: result.position,
-            driver: driver(drivers, result.driver_code).formatted_name,
+            driver: driver_name(result.driver_code),
             team: driver(drivers, result.driver_code).team,
             q1: result.q1,
             q2: result.q2,
@@ -57,7 +57,7 @@ module FormulitaBackend
       def formatted_race_results(race_results, drivers)
         race_results.map do |result|
           { position: result.position,
-            driver: driver(drivers, result.driver_code).formatted_name,
+            driver: driver_name(result.driver_code),
             team: driver(drivers, result.driver_code).team,
             laps: result.laps,
             time: result.time,
@@ -68,7 +68,7 @@ module FormulitaBackend
 
       def formatted_drivers(year, drivers)
         drivers.each_with_index.map do |driver, index|
-          { name: driver.formatted_name,
+          { name: driver_name(driver.code),
             country: country(driver.nationality),
             team: driver.team,
             points: driver.points,
@@ -102,8 +102,12 @@ module FormulitaBackend
         NATIONALITIES[nationality]
       end
 
+      def driver_name(driver_code)
+        DRIVER_CODES[driver_code]
+      end
+
       def driver(drivers, code)
-        drivers.find { |driver| driver.formatted_name == DRIVER_CODES[code] }
+        drivers.find { |driver| driver.code == code }
       end
 
     end

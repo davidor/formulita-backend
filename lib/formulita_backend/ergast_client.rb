@@ -71,12 +71,11 @@ module FormulitaBackend
       def parsed_driver_standings(drivers_resp_json)
         drivers_resp_json['MRData']['StandingsTable']['StandingsLists']
             .first['DriverStandings'].map do |driver_info|
-          first_name = driver_info['Driver']['givenName']
-          last_name = driver_info['Driver']['familyName']
+          code = driver_info['Driver']['code']
           nationality = driver_info['Driver']['nationality']
           team = driver_info['Constructors'].first['name'] # What if size > 1 ?
           points = driver_info['points'].to_i
-          Driver.new(first_name, last_name, nationality, team, points)
+          Driver.new(code, nationality, team, points)
         end
       end
 

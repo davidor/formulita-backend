@@ -1,26 +1,17 @@
 module FormulitaBackend
   class Driver
 
-    attr_reader :first_name, :last_name, :nationality, :team, :points
+    attr_reader :code, :nationality, :team, :points
 
-    def initialize(first_name, last_name, nationality, team, points)
-      @first_name = first_name
-      @last_name = last_name
+    def initialize(code, nationality, team, points)
+      @code = code
       @nationality = nationality
       @team = team
       @points = points
     end
 
-    def formatted_name
-      "#{first_name[0]}.#{last_name}"
-    end
-
     def to_h
-      { first_name: first_name,
-        last_name: last_name,
-        nationality: nationality,
-        team: team,
-        points: points }
+      { code: code, nationality: nationality, team: team, points: points }
     end
 
   end
