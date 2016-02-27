@@ -3,17 +3,17 @@ module FormulitaBackend
   # by the Android app.
   class Formatter
 
-    DRIVER_CODES_FILE = File.expand_path('../../../data/driver_codes.json', __FILE__)
-    private_constant :DRIVER_CODES_FILE
+    DRIVER_NAMES_FILE = File.expand_path('../../../data/driver_names.json', __FILE__)
+    private_constant :DRIVER_NAMES_FILE
 
-    NATIONALITIES_FILE = File.expand_path('../../../data/nationalities.json', __FILE__)
-    private_constant :NATIONALITIES_FILE
+    COUNTRIES_FILE = File.expand_path('../../../data/countries.json', __FILE__)
+    private_constant :COUNTRIES_FILE
 
-    DRIVER_CODES = JSON.parse(File.read(DRIVER_CODES_FILE))
-    private_constant :DRIVER_CODES
+    DRIVER_NAMES = JSON.parse(File.read(DRIVER_NAMES_FILE))
+    private_constant :DRIVER_NAMES
 
-    NATIONALITIES = JSON.parse(File.read(NATIONALITIES_FILE))
-    private_constant :NATIONALITIES
+    COUNTRIES = JSON.parse(File.read(COUNTRIES_FILE))
+    private_constant :COUNTRIES
 
     class << self
 
@@ -99,11 +99,11 @@ module FormulitaBackend
       end
 
       def country(nationality)
-        NATIONALITIES[nationality]
+        COUNTRIES[nationality]
       end
 
       def driver_name(driver_code)
-        DRIVER_CODES[driver_code]
+        DRIVER_NAMES[driver_code]
       end
 
       def driver(drivers, code)
