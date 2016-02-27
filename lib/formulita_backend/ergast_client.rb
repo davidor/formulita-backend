@@ -59,8 +59,9 @@ module FormulitaBackend
           year = race_info['season'].to_i
           round = race_info['round'].to_i
           country = race_info['Circuit']['Location']['country']
-          end_date = race_info['date']
-          Race.new(year, round, country, end_date)
+          date = race_info['date']
+          time = race_info['time']
+          Race.new(year, round, country, date, time)
         end
       end
 

@@ -35,8 +35,8 @@ module FormulitaBackend
           { year: race.year,
             number: race.round,
             country: formatted_country(race.country),
-            startDate: formatted_time(DateTime.parse(race.start_date)),
-            endDate: formatted_time(DateTime.parse(race.end_date)),
+            startDate: formatted_date_time(race.start_date, race.time),
+            endDate: formatted_date_time(race.date, race.time),
             winner: driver_name(race_results[index].first.driver_code),
             qualyResults: formatted_qualy_results(qualy_results[index], drivers),
             raceResults: formatted_race_results(race_results[index], drivers) }
@@ -87,8 +87,8 @@ module FormulitaBackend
         end
       end
 
-      def formatted_time(time_utc)
-        time_utc.strftime('%Y-%m-%dT%TZ')
+      def formatted_date_time(date, time)
+        "#{date}T#{time}"
       end
 
       def formatted_country(country)

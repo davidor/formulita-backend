@@ -14,8 +14,8 @@ module FormulitaBackend
 
     # Objects that appear in the fixtures
     let(:races) do
-      { australia: Race.new(2015, 1, 'Australia', '2015-03-15'),
-        malaysia: Race.new(2015, 2, 'Malaysia', '2015-03-29') }
+      { australia: Race.new(2015, 1, 'Australia', '2015-03-15', '05:00:00Z'),
+        malaysia: Race.new(2015, 2, 'Malaysia', '2015-03-29', '07:00:00Z') }
     end
 
     let(:drivers) do
