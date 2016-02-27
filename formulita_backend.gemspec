@@ -31,4 +31,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'webmock'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'pry-byebug'
+
+  spec.add_runtime_dependency 'sinatra', '1.4.7'
 end
