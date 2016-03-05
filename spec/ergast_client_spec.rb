@@ -12,34 +12,52 @@ module FormulitaBackend
     let(:year) { 2015 }
     let(:round) { 1 }
 
-    # Objects that appear in the fixtures
+    # Entities that appear in the fixtures
     let(:races) do
-      { australia: Race.new(2015, 1, 'Australia', '2015-03-15', '05:00:00Z'),
-        malaysia: Race.new(2015, 2, 'Malaysia', '2015-03-29', '07:00:00Z') }
+      { australia: { year: year,
+                     round: 1,
+                     country: 'Australia',
+                     date: '2015-03-15',
+                     time: '05:00:00Z' },
+        malaysia: { year: year,
+                    round: 2,
+                    country: 'Malaysia',
+                    date: '2015-03-29',
+                    time: '07:00:00Z' } }
     end
 
     let(:drivers) do
-      { hamilton: Driver.new('HAM', 'British', 'Mercedes', 381),
-        rosberg: Driver.new('ROS', 'German', 'Mercedes', 322) }
+      { hamilton: { code: 'HAM',
+                    nationality: 'British',
+                    team: 'Mercedes',
+                    points: 381 },
+        rosberg: { code: 'ROS',
+                   nationality: 'German',
+                   team: 'Mercedes',
+                   points: 322 } }
     end
 
     let(:teams) do
-      { mercedes: Team.new('Mercedes', 'German', 703),
-        ferrari: Team.new('Ferrari', 'Italian', 428) }
+      { mercedes: { name: 'Mercedes', nationality: 'German', points: 703 },
+        ferrari: { name: 'Ferrari', nationality: 'Italian', points: 428 } }
     end
 
     let(:qualy_results) do
       { hamilton_australia:
-            QualifyingResult.new(1, 'HAM', '1:28.586', '1:26.894', '1:26.327'),
+            { position: 1, driver_code: 'HAM',
+              q1: '1:28.586', q2: '1:26.894', q3: '1:26.327' },
         rosberg_australia:
-            QualifyingResult.new(2, 'ROS', '1:28.906', '1:27.097', '1:26.921') }
+            { position: 2, driver_code: 'ROS',
+              q1: '1:28.906', q2: '1:27.097', q3: '1:26.921' } }
     end
 
     let(:race_results) do
       { hamilton_australia:
-            RaceResult.new(1, 'HAM', 58, '1:31:54.067', 1, 25),
+            { position: 1, driver_code: 'HAM', laps: 58,
+              time: '1:31:54.067', grid: 1, points: 25 },
         rosberg_australia:
-            RaceResult.new(2, 'ROS', 58, '+1.360', 2, 18) }
+            { position: 2, driver_code: 'ROS', laps: 58,
+              time: '+1.360', grid: 2, points: 18 } }
     end
 
     describe '.races' do

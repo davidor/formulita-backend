@@ -18,26 +18,27 @@ module FormulitaBackend
     class << self
 
       def formatted_championship(championship)
-        year = championship.year
+        year = championship[:year]
         { year: year,
-          races: formatted_races(championship.races,
-                                 championship.qualy_results,
-                                 championship.race_results,
-                                 championship.drivers),
-          drivers: formatted_drivers(year, championship.drivers),
-          teams: formatted_teams(year, championship.teams) }.to_json
+          races: formatted_races(championship[:races],
+                                 championship[:qualy_results],
+                                 championship[:race_results],
+                                 championship[:drivers]),
+          drivers: formatted_drivers(year, championship[:drivers]),
+          teams: formatted_teams(year, championship[:teams]) }
       end
 
       private
 
       def formatted_races(races, qualy_results, race_results, drivers)
         races.each_with_index.map do |race, index|
-          { year: race.year,
-            number: race.round,
-            country: formatted_country(race.country),
-            startDate: formatted_date_time(race.start_date, race.time),
-            endDate: formatted_date_time(race.date, race.time),
-            winner: driver_name(race_results[index].first.driver_code),
+          { year: race[:year],
+            number: race[:round],
+            country: formatted_country(race[:country]),
+            startDate: formatted_date_time(
+                start_date(race[:date], race[:country]), race[:time]),
+            endDate: formatted_date_time(race[:date], race[:time]),
+            winner: driver_name(race_results[index].first[:driver_code]),
             qualyResults: formatted_qualy_results(qualy_results[index], drivers),
             raceResults: formatted_race_results(race_results[index], drivers) }
         end
@@ -45,33 +46,33 @@ module FormulitaBackend
 
       def formatted_qualy_results(qualy_results, drivers)
         qualy_results.map do |result|
-          { position: result.position,
-            driver: driver_name(result.driver_code),
-            team: driver(drivers, result.driver_code).team,
-            q1: result.q1,
-            q2: result.q2,
-            q3: result.q3 }
+          { position: result[:position],
+            driver: driver_name(result[:driver_code]),
+            team: driver(drivers, result[:driver_code])[:team],
+            q1: result[:q1],
+            q2: result[:q2],
+            q3: result[:q3] }
         end
       end
 
       def formatted_race_results(race_results, drivers)
         race_results.map do |result|
-          { position: result.position,
-            driver: driver_name(result.driver_code),
-            team: driver(drivers, result.driver_code).team,
-            laps: result.laps,
-            time: result.time,
-            grid: result.grid,
-            points: result.points }
+          { position: result[:position],
+            driver: driver_name(result[:driver_code]),
+            team: driver(drivers, result[:driver_code])[:team],
+            laps: result[:laps],
+            time: result[:time],
+            grid: result[:grid],
+            points: result[:points] }
         end
       end
 
       def formatted_drivers(year, drivers)
         drivers.each_with_index.map do |driver, index|
-          { name: driver_name(driver.code),
-            country: country(driver.nationality),
-            team: driver.team,
-            points: driver.points,
+          { name: driver_name(driver[:code]),
+            country: country(driver[:nationality]),
+            team: driver[:team],
+            points: driver[:points],
             year: year,
             position: index + 1 }
         end
@@ -79,9 +80,9 @@ module FormulitaBackend
 
       def formatted_teams(year, teams)
         teams.each_with_index.map do |team, index|
-          { name: team.name,
-            country: country(team.nationality),
-            points: team.points,
+          { name: team[:name],
+            country: country(team[:nationality]),
+            points: team[:points],
             year: year,
             position: index + 1 }
         end
@@ -89,6 +90,11 @@ module FormulitaBackend
 
       def formatted_date_time(date, time)
         "#{date}T#{time}"
+      end
+
+      def start_date(race_date, country)
+        days_before = country == 'Monaco' ? 3 : 2
+        (DateTime.parse(race_date) - days_before).strftime('%Y-%m-%d')
       end
 
       def formatted_country(country)
@@ -107,7 +113,7 @@ module FormulitaBackend
       end
 
       def driver(drivers, code)
-        drivers.find { |driver| driver.code == code }
+        drivers.find { |driver| driver[:code] == code }
       end
 
     end

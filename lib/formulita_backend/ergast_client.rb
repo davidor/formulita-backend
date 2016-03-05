@@ -56,12 +56,11 @@ module FormulitaBackend
 
       def parsed_races(races_resp_json)
         races_resp_json['MRData']['RaceTable']['Races'].map do |race_info|
-          year = race_info['season'].to_i
-          round = race_info['round'].to_i
-          country = race_info['Circuit']['Location']['country']
-          date = race_info['date']
-          time = race_info['time']
-          Race.new(year, round, country, date, time)
+          { year: race_info['season'].to_i,
+            round: race_info['round'].to_i,
+            country: race_info['Circuit']['Location']['country'],
+            date: race_info['date'],
+            time: race_info['time'] }
         end
       end
 
@@ -72,11 +71,10 @@ module FormulitaBackend
       def parsed_driver_standings(drivers_resp_json)
         drivers_resp_json['MRData']['StandingsTable']['StandingsLists']
             .first['DriverStandings'].map do |driver_info|
-          code = driver_info['Driver']['code']
-          nationality = driver_info['Driver']['nationality']
-          team = driver_info['Constructors'].first['name'] # What if size > 1 ?
-          points = driver_info['points'].to_i
-          Driver.new(code, nationality, team, points)
+          { code: driver_info['Driver']['code'],
+            nationality: driver_info['Driver']['nationality'],
+            team: driver_info['Constructors'].first['name'], # What if size > 1
+            points: driver_info['points'].to_i }
         end
       end
 
@@ -87,10 +85,9 @@ module FormulitaBackend
       def parsed_team_standings(teams_resp_json)
         teams_resp_json['MRData']['StandingsTable']['StandingsLists']
             .first['ConstructorStandings'].map do |team_info|
-          name = team_info['Constructor']['name']
-          nationality = team_info['Constructor']['nationality']
-          points = team_info['points'].to_i
-          Team.new(name, nationality, points)
+          { name: team_info['Constructor']['name'],
+            nationality: team_info['Constructor']['nationality'],
+            points: team_info['points'].to_i }
         end
       end
 
@@ -101,12 +98,11 @@ module FormulitaBackend
       def parsed_qualifying_info(qualy_resp_json)
         qualy_resp_json['MRData']['RaceTable']['Races']
             .first['QualifyingResults'].map do |position_info|
-          position = position_info['position'].to_i
-          driver_code = position_info['Driver']['code']
-          q1 = position_info['Q1']
-          q2 = position_info['Q2'] || ''
-          q3 = position_info['Q3'] || ''
-          QualifyingResult.new(position, driver_code, q1, q2, q3)
+          { position: position_info['position'].to_i,
+            driver_code: position_info['Driver']['code'],
+            q1: position_info['Q1'],
+            q2: position_info['Q2'] || '',
+            q3: position_info['Q3'] || '' }
         end
       end
 
@@ -117,19 +113,16 @@ module FormulitaBackend
       def parsed_results_info(results_resp_json)
         results_resp_json['MRData']['RaceTable']['Races']
             .first['Results'].map do |position_info|
-          position = position_info['position'].to_i
-          driver_code = position_info['Driver']['code']
-          laps = position_info['laps'].to_i
-
-          time = if position_info['Time']
-                   position_info['Time']['time']
-                 else
-                   position_info['status']
-                 end
-
-          grid = position_info['grid'].to_i
-          race_points = position_info['points'].to_i
-          RaceResult.new(position, driver_code, laps, time, grid, race_points)
+          { position: position_info['position'].to_i,
+            driver_code: position_info['Driver']['code'],
+            laps: position_info['laps'].to_i,
+            time: if position_info['Time']
+                    position_info['Time']['time']
+                  else
+                    position_info['status']
+                  end,
+            grid: position_info['grid'].to_i,
+            points: position_info['points'].to_i }
         end
       end
 

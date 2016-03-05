@@ -11,7 +11,7 @@ module FormulitaBackend
     end
 
     def update(year)
-      write(year, formatted_championship(year))
+      write(year, formatted_championship(year).to_json)
     end
 
     private
@@ -24,9 +24,13 @@ module FormulitaBackend
 
     def championship(year)
       races = races(year)
-      Championship.new(
-          year, races, drivers(year), teams(year),
-          qualy_results(year, races.size), race_results(year, races.size))
+
+      { year: year,
+        races: races,
+        drivers: drivers(year),
+        teams: teams(year),
+        qualy_results: qualy_results(year, races.size),
+        race_results: race_results(year, races.size) }
     end
 
     def races(year)
