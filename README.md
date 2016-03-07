@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/davidor/formulita-backend.svg?branch=master)](https://travis-ci.org/davidor/formulita-backend)
+[![Code Climate](https://codeclimate.com/github/davidor/formulita-backend/badges/gpa.svg)](https://codeclimate.com/github/davidor/formulita-backend)
+
 # FormulitaBackend
 
 This is the backend of the [Formulita Android app](https://play.google.com/store/apps/details?id=com.formulita).
