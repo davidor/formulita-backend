@@ -9,38 +9,38 @@ module FormulitaBackend
     class << self
 
       def races(year)
-        response = get(races_path(year))
-        parsed_response = json_response(response)
-        parsed_races(parsed_response)
+        get_resource(:races, year)
       end
 
       # Drivers are returned in order according to their position in the
       # championship.
       def drivers(year)
-        response = get(drivers_path(year))
-        parsed_response = json_response(response)
-        parsed_driver_standings(parsed_response)
+        get_resource(:drivers, year)
       end
 
       def teams(year)
-        response = get(teams_path(year))
-        parsed_response = json_response(response)
-        parsed_team_standings(parsed_response)
+        get_resource(:teams, year)
       end
 
       def qualifying_results(year, round)
-        response = get(qualifying_results_path(year, round))
-        parsed_response = json_response(response)
-        parsed_qualifying_info(parsed_response)
+        get_resource(:qualifying_results, year, round)
       end
 
       def race_results(year, round)
-        response = get(race_results_path(year, round))
-        parsed_response = json_response(response)
-        parsed_results_info(parsed_response)
+        get_resource(:race_results, year, round)
       end
 
       private
+
+      def get_resource(resource, year, round = nil)
+        response = if round
+                     get(send("#{resource}_path".to_sym, year, round))
+                   else
+                     get(send("#{resource}_path".to_sym, year))
+                   end
+        parsed_response = json_response(response)
+        send("parsed_#{resource}", parsed_response)
+      end
 
       def get(path)
         Net::HTTP.get(URI(path))
@@ -68,7 +68,7 @@ module FormulitaBackend
         "#{BASE_PATH}#{year}/driverstandings.json".freeze
       end
 
-      def parsed_driver_standings(drivers_resp_json)
+      def parsed_drivers(drivers_resp_json)
         drivers_resp_json['MRData']['StandingsTable']['StandingsLists']
             .first['DriverStandings'].map do |driver_info|
           { code: driver_info['Driver']['code'],
@@ -82,7 +82,7 @@ module FormulitaBackend
         "#{BASE_PATH}#{year}/constructorstandings.json".freeze
       end
 
-      def parsed_team_standings(teams_resp_json)
+      def parsed_teams(teams_resp_json)
         teams_resp_json['MRData']['StandingsTable']['StandingsLists']
             .first['ConstructorStandings'].map do |team_info|
           { name: team_info['Constructor']['name'],
@@ -95,7 +95,7 @@ module FormulitaBackend
         "#{BASE_PATH}#{year}/#{round}/qualifying.json".freeze
       end
 
-      def parsed_qualifying_info(qualy_resp_json)
+      def parsed_qualifying_results(qualy_resp_json)
         qualy_resp_json['MRData']['RaceTable']['Races']
             .first['QualifyingResults'].map do |position_info|
           { position: position_info['position'].to_i,
@@ -110,7 +110,7 @@ module FormulitaBackend
         "#{BASE_PATH}#{year}/#{round}/results.json".freeze
       end
 
-      def parsed_results_info(results_resp_json)
+      def parsed_race_results(results_resp_json)
         results_resp_json['MRData']['RaceTable']['Races']
             .first['Results'].map do |position_info|
           { position: position_info['position'].to_i,
