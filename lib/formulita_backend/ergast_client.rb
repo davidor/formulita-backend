@@ -96,6 +96,8 @@ module FormulitaBackend
       end
 
       def parsed_qualifying_results(qualy_resp_json)
+        return [] if qualy_resp_json['MRData']['RaceTable']['Races'].empty?
+
         qualy_resp_json['MRData']['RaceTable']['Races']
             .first['QualifyingResults'].map do |position_info|
           { position: position_info['position'].to_i,
@@ -111,6 +113,8 @@ module FormulitaBackend
       end
 
       def parsed_race_results(results_resp_json)
+        return [] if results_resp_json['MRData']['RaceTable']['Races'].empty?
+
         results_resp_json['MRData']['RaceTable']['Races']
             .first['Results'].map do |position_info|
           { position: position_info['position'].to_i,

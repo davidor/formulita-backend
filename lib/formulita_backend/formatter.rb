@@ -38,10 +38,14 @@ module FormulitaBackend
             startDate: formatted_date_time(
                 start_date(race[:date], race[:country]), race[:time]),
             endDate: formatted_date_time(race[:date], race[:time]),
-            winner: driver_name(race_results[index].first[:driver_code]),
+            winner: formatted_winner(race_results[index]),
             qualyResults: formatted_qualy_results(qualy_results[index], drivers),
             raceResults: formatted_race_results(race_results[index], drivers) }
         end
+      end
+
+      def formatted_winner(results)
+        results.empty? ? '' : driver_name(results.first[:driver_code])
       end
 
       def formatted_qualy_results(qualy_results, drivers)
