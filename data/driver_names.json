@@ -8,6 +8,7 @@
   "GRO": "R.Grosjean",
   "GUT": "E.Gutierrez",
   "HAM": "L.Hamilton",
+  "HAR": "R.Haryanto",
   "HUL": "N.Hulkenberg",
   "KOB": "K.Kobayashi",
   "KVY": "D.Kvyat",
@@ -17,6 +18,7 @@
   "MAS": "F.Massa",
   "MER": "R.Merhi",
   "NAS": "F.Nasr",
+  "PAL": "J.Palmer",
   "PER": "S.Perez",
   "RAI": "K.Raikkonen",
   "RIC": "D.Ricciardo",
@@ -27,5 +29,6 @@
   "SUT": "A.Sutil",
   "VER": "J.E.Vergne",
   "VES": "M.Verstappen",
-  "VET": "S.Vettel"
+  "VET": "S.Vettel",
+  "WEH": "P.Wehrlein"
 }
