@@ -69,11 +69,13 @@ module FormulitaBackend
       end
 
       def parsed_drivers(drivers_resp_json)
+        # A driver can be in multiple teams during one season. Only the latest
+        # needs to be returned.
         drivers_resp_json['MRData']['StandingsTable']['StandingsLists']
             .first['DriverStandings'].map do |driver_info|
           { code: driver_info['Driver']['code'],
             nationality: driver_info['Driver']['nationality'],
-            team: driver_info['Constructors'].first['name'], # What if size > 1
+            team: driver_info['Constructors'].last['name'],
             points: driver_info['points'].to_i }
         end
       end
@@ -102,6 +104,7 @@ module FormulitaBackend
             .first['QualifyingResults'].map do |position_info|
           { position: position_info['position'].to_i,
             driver_code: position_info['Driver']['code'],
+            team: position_info['Constructor']['name'],
             q1: position_info['Q1'],
             q2: position_info['Q2'] || '',
             q3: position_info['Q3'] || '' }
@@ -119,6 +122,7 @@ module FormulitaBackend
             .first['Results'].map do |position_info|
           { position: position_info['position'].to_i,
             driver_code: position_info['Driver']['code'],
+            team: position_info['Constructor']['name'],
             laps: position_info['laps'].to_i,
             time: if position_info['Time']
                     position_info['Time']['time']

@@ -22,15 +22,14 @@ module FormulitaBackend
         { year: year,
           races: formatted_races(championship[:races],
                                  championship[:qualy_results],
-                                 championship[:race_results],
-                                 championship[:drivers]),
+                                 championship[:race_results]),
           drivers: formatted_drivers(year, championship[:drivers]),
           teams: formatted_teams(year, championship[:teams]) }
       end
 
       private
 
-      def formatted_races(races, qualy_results, race_results, drivers)
+      def formatted_races(races, qualy_results, race_results)
         races.each_with_index.map do |race, index|
           { year: race[:year],
             number: race[:round],
@@ -39,8 +38,8 @@ module FormulitaBackend
                 start_date(race[:date], race[:country]), race[:time]),
             endDate: formatted_date_time(race[:date], race[:time]),
             winner: formatted_winner(race_results[index]),
-            qualyResults: formatted_qualy_results(qualy_results[index], drivers),
-            raceResults: formatted_race_results(race_results[index], drivers) }
+            qualyResults: formatted_qualy_results(qualy_results[index]),
+            raceResults: formatted_race_results(race_results[index]) }
         end
       end
 
@@ -48,22 +47,22 @@ module FormulitaBackend
         results.empty? ? '' : driver_name(results.first[:driver_code])
       end
 
-      def formatted_qualy_results(qualy_results, drivers)
+      def formatted_qualy_results(qualy_results)
         qualy_results.map do |result|
           { position: result[:position],
             driver: driver_name(result[:driver_code]),
-            team: driver(drivers, result[:driver_code])[:team],
+            team: result[:team],
             q1: result[:q1],
             q2: result[:q2],
             q3: result[:q3] }
         end
       end
 
-      def formatted_race_results(race_results, drivers)
+      def formatted_race_results(race_results)
         race_results.map do |result|
           { position: result[:position],
             driver: driver_name(result[:driver_code]),
-            team: driver(drivers, result[:driver_code])[:team],
+            team: result[:team],
             laps: result[:laps],
             time: result[:time],
             grid: result[:grid],

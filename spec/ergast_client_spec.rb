@@ -44,20 +44,20 @@ module FormulitaBackend
 
     let(:qualy_results) do
       { hamilton_australia:
-            { position: 1, driver_code: 'HAM',
+            { position: 1, driver_code: 'HAM', team: 'Mercedes',
               q1: '1:28.586', q2: '1:26.894', q3: '1:26.327' },
         rosberg_australia:
-            { position: 2, driver_code: 'ROS',
+            { position: 2, driver_code: 'ROS', team: 'Mercedes',
               q1: '1:28.906', q2: '1:27.097', q3: '1:26.921' } }
     end
 
     let(:race_results) do
       { hamilton_australia:
-            { position: 1, driver_code: 'HAM', laps: 58,
-              time: '1:31:54.067', grid: 1, points: 25 },
+            { position: 1, driver_code: 'HAM', team: 'Mercedes',
+              laps: 58, time: '1:31:54.067', grid: 1, points: 25 },
         rosberg_australia:
-            { position: 2, driver_code: 'ROS', laps: 58,
-              time: '+1.360', grid: 2, points: 18 } }
+            { position: 2, driver_code: 'ROS', team: 'Mercedes',
+              laps: 58, time: '+1.360', grid: 2, points: 18 } }
     end
 
     describe '.races' do

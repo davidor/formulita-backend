@@ -27,13 +27,14 @@ module FormulitaBackend
       end
 
       let(:qualy_results) do
-        [[{ position: 1, driver_code: 'HAM',
+        [[{ position: 1, driver_code: 'HAM', team: 'Mercedes',
             q1: '1:31.699', q2: '1:42.890', q3: '1:44.231' }]]
       end
 
       let(:race_results) do
         [[{ position: 1,
             driver_code: 'ROS',
+            team: 'Mercedes',
             laps: 57,
             time: '1:32:58.710',
             grid: 3,
