@@ -38,8 +38,8 @@ module FormulitaBackend
                 start_date(race[:date], race[:country]), race[:time]),
             endDate: formatted_date_time(race[:date], race[:time]),
             winner: formatted_winner(race_results[index]),
-            qualyResults: formatted_qualy_results(qualy_results[index]),
-            raceResults: formatted_race_results(race_results[index]) }
+            qualyResults: formatted_results(qualy_results[index]),
+            raceResults: formatted_results(race_results[index]) }
         end
       end
 
@@ -47,26 +47,10 @@ module FormulitaBackend
         results.empty? ? '' : driver_name(results.first[:driver_code])
       end
 
-      def formatted_qualy_results(qualy_results)
-        qualy_results.map do |result|
-          { position: result[:position],
-            driver: driver_name(result[:driver_code]),
-            team: result[:team],
-            q1: result[:q1],
-            q2: result[:q2],
-            q3: result[:q3] }
-        end
-      end
-
-      def formatted_race_results(race_results)
-        race_results.map do |result|
-          { position: result[:position],
-            driver: driver_name(result[:driver_code]),
-            team: result[:team],
-            laps: result[:laps],
-            time: result[:time],
-            grid: result[:grid],
-            points: result[:points] }
+      def formatted_results(results)
+        results.map do |result|
+          driver = driver_name(result[:driver_code])
+          result.tap { |res| res.delete(:driver_code) }.merge(driver: driver)
         end
       end
 
