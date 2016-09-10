@@ -2,6 +2,10 @@ require 'sinatra'
 
 DATA_PATH = File.expand_path('../../data', __FILE__).freeze
 
+get '/' do
+  status(200)
+end
+
 get '/seasons/:year' do |year|
   content_type :json
 
