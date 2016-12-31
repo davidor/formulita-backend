@@ -71,7 +71,7 @@ module FormulitaBackend
 
       it 'returns the races of the given season' do
         expect(subject.races(year).map(&:to_h))
-            .to eq [races[:australia], races[:malaysia]].map(&:to_h)
+            .to eq [races[:australia], races[:malaysia]]
       end
     end
 
@@ -86,7 +86,7 @@ module FormulitaBackend
 
       it 'returns the drivers of the given season' do
         expect(subject.drivers(year).map(&:to_h))
-            .to eq [drivers[:hamilton], drivers[:rosberg]].map(&:to_h)
+            .to eq [drivers[:hamilton], drivers[:rosberg]]
       end
     end
 
@@ -101,7 +101,7 @@ module FormulitaBackend
 
       it 'returns the teams of the given season' do
         expect(subject.teams(year).map(&:to_h))
-            .to eq [teams[:mercedes], teams[:ferrari]].map(&:to_h)
+            .to eq [teams[:mercedes], teams[:ferrari]]
       end
     end
 
@@ -117,7 +117,7 @@ module FormulitaBackend
       it 'returns the qualifying results of the given race' do
         expect(subject.qualifying_results(year, round).map(&:to_h))
             .to eq [qualy_results[:hamilton_australia],
-                    qualy_results[:rosberg_australia]].map(&:to_h)
+                    qualy_results[:rosberg_australia]]
       end
     end
 
@@ -133,7 +133,7 @@ module FormulitaBackend
       it 'returns the results of the given race' do
         expect(subject.race_results(year, round).map(&:to_h))
             .to eq [race_results[:hamilton_australia],
-                    race_results[:rosberg_australia]].map(&:to_h)
+                    race_results[:rosberg_australia]]
       end
     end
   end
