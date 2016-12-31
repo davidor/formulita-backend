@@ -27,25 +27,6 @@
           },
           "date": "2015-03-15",
           "time": "05:00:00Z"
-        },
-        {
-          "season": "2015",
-          "round": "2",
-          "url": "http:\/\/en.wikipedia.org\/wiki\/2015_Malaysian_Grand_Prix",
-          "raceName": "Malaysian Grand Prix",
-          "Circuit": {
-            "circuitId": "sepang",
-            "url": "http:\/\/en.wikipedia.org\/wiki\/Sepang_International_Circuit",
-            "circuitName": "Sepang International Circuit",
-            "Location": {
-              "lat": "2.76083",
-              "long": "101.738",
-              "locality": "Kuala Lumpur",
-              "country": "Malaysia"
-            }
-          },
-          "date": "2015-03-29",
-          "time": "07:00:00Z"
         }
       ]
     }
