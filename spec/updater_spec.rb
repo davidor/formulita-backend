@@ -5,7 +5,9 @@ module FormulitaBackend
     describe '.update' do
       let(:year) { 2015 }
       let(:data_path) { Updater.const_get(:DATA_PATH) }
-      let(:ergast_client) { double(races: [], drivers:[], teams: []) }
+      let(:ergast_client) do
+        double(championship: { races: [],  drivers: [], teams: [] })
+      end
 
       subject { Updater.new(ergast_client: ergast_client) }
 

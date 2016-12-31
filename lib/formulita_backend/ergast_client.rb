@@ -8,29 +8,30 @@ module FormulitaBackend
 
     class << self
 
-      def races(year)
-        get_resource(:races, year)
-      end
+      def championship(year)
+        races = get_resource(:races, year)
 
-      # Drivers are returned in order according to their position in the
-      # championship.
-      def drivers(year)
-        get_resource(:drivers, year)
-      end
-
-      def teams(year)
-        get_resource(:teams, year)
-      end
-
-      def qualifying_results(year, round)
-        get_resource(:qualifying_results, year, round)
-      end
-
-      def race_results(year, round)
-        get_resource(:race_results, year, round)
+        { year: year,
+          races: races,
+          drivers: get_resource(:drivers, year), # Sorted by position
+          teams: get_resource(:teams, year),
+          qualy_results: qualy_results(year, races.size),
+          race_results: race_results(year, races.size) }
       end
 
       private
+
+      def qualy_results(year, n_races)
+        (1..n_races).map do |round|
+          get_resource(:qualifying_results, year, round)
+        end
+      end
+
+      def race_results(year, n_races)
+        (1..n_races).map do |round|
+          get_resource(:race_results, year, round)
+        end
+      end
 
       def get_resource(resource, year, round = nil)
         response = if round
