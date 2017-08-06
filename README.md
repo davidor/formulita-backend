@@ -25,6 +25,24 @@ To run the tests:
 
     $ bundle exec rake spec
 
+### With docker
+
+Run the tests:
+
+    $ make test
+
+Run the app:
+
+    $ make run
+
+Develop:
+
+    $ make bash
+
+That will create a Docker container and run bash inside it. The project's
+source code will be available in ~/app and synced with your local directory.
+
+
 ## License
 
 [MIT License](http://opensource.org/licenses/MIT).
