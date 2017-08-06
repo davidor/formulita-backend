@@ -33,5 +33,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pry-byebug'
   spec.add_development_dependency 'simplecov'
 
-  spec.add_runtime_dependency 'sinatra', '1.4.7'
+  spec.add_runtime_dependency 'sinatra', '~> 2.0'
 end
