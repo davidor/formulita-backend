@@ -1,4 +1,4 @@
-FROM ubuntu:xenial
+FROM ubuntu:bionic
 MAINTAINER David Ortiz <z.david.ortiz@gmail.com>
 
 ARG USER_NAME=formulita
